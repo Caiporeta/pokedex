@@ -13,14 +13,13 @@ class PokemonMoves extends StatefulWidget {
 class _PokemonMovesState extends State<PokemonMoves> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: (widget.abilitiesData.moves!.isNotEmpty)
-          ? widget.abilitiesData.moves!.map((e) {
-              return _move(e!.move!.name!);
-            }).toList()
-          : [Container()],
-    );
+    return widget.abilitiesData.moves!.isNotEmpty
+        ? Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: widget.abilitiesData.moves!.map((e) {
+              return _move(e.move!.name!);
+            }).toList())
+        : const SizedBox.shrink();
   }
 
   Widget _move(String label) {

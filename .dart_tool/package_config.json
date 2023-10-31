@@ -141,9 +141,9 @@
     },
     {
       "name": "file",
-      "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/file-7.0.0",
+      "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/file-6.1.4",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter",
@@ -338,12 +338,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "sprintf",
-      "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/sprintf-7.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "stack_trace",
       "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/stack_trace-1.11.0",
       "packageUri": "lib/",
@@ -387,9 +381,9 @@
     },
     {
       "name": "uuid",
-      "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/uuid-4.1.0",
+      "rootUri": "file:///Users/caiporeta/.pub-cache/hosted/pub.dev/uuid-3.0.7",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.12"
     },
     {
       "name": "vector_graphics",
@@ -446,7 +440,7 @@
       "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-10-29T20:15:39.623244Z",
+  "generated": "2023-10-30T14:53:42.916122Z",
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }

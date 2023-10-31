@@ -252,6 +252,7 @@ class _PokemonInformationState extends State<PokemonInformation>
                   offset: const Offset(-10, 10))
             ]),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [_tabBars(context), _tabBarView(context)],
         ),
       ),
@@ -289,12 +290,12 @@ class _PokemonInformationState extends State<PokemonInformation>
           SingleChildScrollView(
               child: (_infoData != null && _abilitiesData != null)
                   ? Info(_infoData, _abilitiesData)
-                  : Container()),
+                  : const SizedBox.shrink()),
           SingleChildScrollView(child: PokemonMoves(_abilitiesData!)),
           SingleChildScrollView(
               child: (_abilitiesData != null)
                   ? PokemonStats(_abilitiesData!)
-                  : Container()),
+                  : const SizedBox.shrink()),
           SingleChildScrollView(
               child: (_evolutions != null)
                   ? Evolutions(_evolutions!)
