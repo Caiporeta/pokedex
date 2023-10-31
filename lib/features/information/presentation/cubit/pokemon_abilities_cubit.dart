@@ -51,6 +51,7 @@ class PokemonAbilitiesCubit extends Cubit<PokemonAbilitiesState> {
         return null;
       }
     });
+    return null;
   }
 }
 

@@ -6,7 +6,6 @@ import 'package:get_it/get_it.dart';
 import 'features/splash/presentation/pages/splash_page.dart';
 import 'locator.dart' as locator;
 
-
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   locator.getSetupLocator();
@@ -22,9 +21,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      color: const Color(0xffdc0a2d),
+      title: 'Pokedex',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
         primaryColor: const Color(0xffdc0a2d),
         cardColor: const Color(0xffdedede),
         indicatorColor: const Color(0xff28aaff),
@@ -35,23 +34,7 @@ class MyApp extends StatelessWidget {
         ),
         backgroundColor: const Color(0xffdc0a2d),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Splash(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return const Splash();
   }
 }
