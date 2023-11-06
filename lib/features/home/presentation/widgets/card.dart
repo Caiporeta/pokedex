@@ -1,38 +1,49 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pokedex/features/home/model/pokemon_card_model.dart';
+import 'package:pokedex/features/home/presentation/cubit/pokemon_home_card_cubit.dart';
 import 'package:pokedex/features/information/presentation/pages/pokemon_information.dart';
 
 import '../../../../shared/buttons/go_to_button.dart';
 import '../../../../shared/picture/pokemon_picture.dart';
 
-class PokemonCard extends StatelessWidget {
-  PokemonCard({Key? key}) : super(key: key);
+class PokemonCard extends StatefulWidget {
+  const PokemonCard({Key? key}) : super(key: key);
 
-  final Map<int, Map<String, String>> _pokemons = {
-    1: {
-      'name': 'Bulbasaur',
-      'url': "https://pokeapi.co/api/v2/pokemon-species/1",
-      'picture':
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg'
-    },
-    2: {
-      'name': 'Ivysaur',
-      'url': 'https://pokeapi.co/api/v2/pokemon-species/2',
-      'picture':
-          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg'
-    }
-  };
+  @override
+  State<PokemonCard> createState() => _PokemonCardState();
+}
+
+class _PokemonCardState extends State<PokemonCard> {
+  final pokemonHomeCardCubit = GetIt.instance<PokemonHomeCardCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: _pokemons.entries.map((e) {
-          return _card(e.key, e.value, context);
-        }).toList());
+    return BlocProvider<PokemonHomeCardCubit>(
+        create: (context) => pokemonHomeCardCubit..getPokemonsList(),
+        child: _pokemonListBody());
   }
 
-  Widget _card(int id, Map<String, String> details, BuildContext context) {
+  Widget _pokemonListBody() {
+    return BlocBuilder<PokemonHomeCardCubit, PokemonHomeCardState>(
+        builder: (context, state) {
+      if (state is PokemonHomeCardLoadingState) {
+        return const CircularProgressIndicator();
+      } else if (state is PokemonHomeCardLoadedState) {
+        return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: state.pokemonCards.map((e) {
+              return _card(e);
+            }).toList());
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
+  }
+
+  Widget _card(PokemonCardModel pokemon) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -58,17 +69,11 @@ class PokemonCard extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      PokemonPicture(height: 50.0, url: details['picture']!),
+                      PokemonPicture(height: 50.0, url: pokemon.image),
                       const SizedBox(width: 24.0),
-                      _pokemonName(details['name']!),
+                      _pokemonName(pokemon.name),
                       const Spacer(),
-                      GoToButton(
-                          goTo: () => _goToPokemonFile(
-                              id,
-                              context,
-                              details['picture']!,
-                              details['name']!,
-                              details['url']!))
+                      GoToButton(goTo: () => _goToPokemonFile(context, pokemon))
                     ],
                   ),
                 ],
@@ -94,17 +99,13 @@ class PokemonCard extends StatelessWidget {
     );
   }
 
-  void _goToPokemonFile(int id, BuildContext context, String pictureUrl,
-      String name, String url) {
-    print("Go to pokemon file page - id = $id");
+  void _goToPokemonFile(BuildContext context, PokemonCardModel pokemon) {
+    print("Go to pokemon file page - id = ${pokemon.id}");
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => PokemonInformation(
-                  pokemonID: id,
-                  pokemonUrl: url,
-                  picture: pictureUrl,
-                  pokemonName: name,
+                  pokemon: pokemon,
                 )));
   }
 }

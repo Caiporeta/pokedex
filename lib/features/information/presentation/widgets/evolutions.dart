@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:pokedex/features/home/model/pokemon_card_model.dart';
 import 'package:pokedex/features/information/model/evolutions.dart';
+import 'package:pokedex/features/information/model/pokemon_variety.dart';
 import 'package:pokedex/shared/buttons/go_to_button.dart';
 
 import '../pages/pokemon_information.dart';
@@ -78,14 +80,17 @@ class _EvolutionsState extends State<Evolutions> {
   }
 
   void _goTo(String name, Trigger evolvesTo) {
+    PokemonCardModel pokemon = PokemonCardModel(
+      id: int.parse(id),
+      url: evolvesTo.url!,
+      name: name,
+      image: _pictureUrl,
+    );
     Navigator.push(
         context,
         CupertinoPageRoute(
             builder: (context) => PokemonInformation(
-                  pokemonID: int.parse(id),
-                  pokemonUrl: evolvesTo.url,
-                  picture: _pictureUrl,
-                  pokemonName: name,
+                  pokemon: pokemon,
                 )));
   }
 

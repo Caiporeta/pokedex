@@ -23,8 +23,10 @@ class _HomeState extends State<Home> {
       child: Column(
         children: [
           PokemonSearch(),
-          SingleChildScrollView(
-            child: PokemonCard(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: PokemonCard(),
+            ),
           )
         ],
       ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pokedex/features/home/model/pokemon_card_model.dart';
 import 'package:pokedex/features/information/model/evolutions.dart';
 import 'package:pokedex/features/information/model/move_data.dart';
 import 'package:pokedex/features/information/model/pokemon_abilities.dart';
@@ -20,18 +21,9 @@ import '../widgets/moves.dart';
 import '../widgets/stats.dart';
 
 class PokemonInformation extends StatefulWidget {
-  final int pokemonID;
-  final String? pokemonUrl;
-  final String pokemonName;
-  final String picture;
+  final PokemonCardModel pokemon;
 
-  const PokemonInformation(
-      {Key? key,
-      required this.pokemonID,
-      this.pokemonUrl,
-      required this.picture,
-      required this.pokemonName})
-      : super(key: key);
+  const PokemonInformation({Key? key, required this.pokemon}) : super(key: key);
 
   @override
   State<PokemonInformation> createState() => _PokemonInformationState();
@@ -76,14 +68,14 @@ class _PokemonInformationState extends State<PokemonInformation>
     return BasicLayout(
         body: MultiBlocProvider(providers: [
       BlocProvider<PokemonInfoCubit>(
-        create: (context) => pokemonInfoCubit..fetch(widget.pokemonUrl!),
+        create: (context) => pokemonInfoCubit..fetch(widget.pokemon.url),
       ),
       BlocProvider<PokemonAbilitiesCubit>(
-        create: (context) => pokemonAbilitiesCubit..fetch(widget.pokemonName),
+        create: (context) => pokemonAbilitiesCubit..fetch(widget.pokemon.name),
       ),
       BlocProvider<PokemonEvolutionsCubit>(
           create: (context) =>
-              pokemonEvolutionsCubit..getEvolutions(widget.pokemonID))
+              pokemonEvolutionsCubit..getEvolutions(widget.pokemon.id))
     ], child: _body(context)));
   }
 

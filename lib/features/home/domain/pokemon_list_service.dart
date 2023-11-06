@@ -17,19 +17,20 @@ class PokemonListService {
   Future<List<PokemonCardModel>> getPokemonDetails(
       PokemonListItemModel pokemonList) async {
     List<PokemonCardModel> _pokemonsCards = [];
+    List<PokemonListItem> _pokemonList = pokemonList.results!.sublist(0, 4);
 
-    pokemonList.results!.map((pokemon) async {
+    for (PokemonListItem pokemon in _pokemonList) {
       ResponseData<PokemonDetailsModel> response =
           await dataService.getPokemonDetail(pokemon);
-
       PokemonCardModel pokemonCard = PokemonCardModel(
+        id: response.data!.id!,
         name: pokemon.name!,
         url: response.data!.species!.url!,
         image: response.data!.sprites!.other!.dreamWorld!.frontDefault!,
       );
 
       _pokemonsCards.add(pokemonCard);
-    });
+    }
 
     return _pokemonsCards;
   }

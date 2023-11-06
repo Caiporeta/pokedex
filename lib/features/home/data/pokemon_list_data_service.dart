@@ -31,7 +31,7 @@ class PokemonListDataService extends AbstractDataService {
       final _url = pokemon.url!;
       Response response = await dio.get(_url);
 
-      final _data = PokemonListItemModel.fromJson(response.data);
+      final _data = PokemonDetailsModel.fromJson(response.data);
 
       return ResponseData<PokemonDetailsModel>(
           data: _data,
